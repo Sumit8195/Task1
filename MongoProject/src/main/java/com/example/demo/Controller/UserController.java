@@ -1,54 +1,58 @@
 package com.example.demo.Controller;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
-import com.example.demo.repositories.UserRepository;
+
+import com.example.demo.service.UserService;
 
 
 @RestController
 public class UserController {
 	@Autowired
-	public UserRepository userRepository;
+	public UserService userService;
 	
-	@GetMapping(value="/all")
-	public List<User> getAllUsers()
+	@RequestMapping("/create")
+	public String create(@RequestParam String fname,@RequestParam String lname,@RequestParam String uemail,@RequestParam long ucontact,@RequestParam long uid) 
 	{
-		return userRepository.findAll();
+		User u = userService.create(fname, lname, uemail, ucontact, uid);
+		return u.toString();
 	}
-	@GetMapping(value="/user/{id}")
-	public Optional<User> getUser(@PathVariable long id)
+	@RequestMapping("/get")
+	public User getUser(@RequestParam String fname) 
 	{
-		return userRepository.findById(id);
+		return userService.getByFirstname(fname);
 	}
-	@PostMapping(value="/create")
-	public String createUser(@RequestBody User user)
+	@RequestMapping("/deleteAll")
+	public String deleteAll() 
 	{
-		User insertedUser = userRepository.insert(user);
-		return "User created "+insertedUser.getUid();
+		userService.deleteAll();
+		return "Deleted All records";
 	}
-	@DeleteMapping(value="/delete/{id}")
-	public String deleteUser(@PathVariable long id)
+	@RequestMapping("/getAll")
+	public List<User> getAll() 
 	{
-		userRepository.deleteById(id);
-		return "user deleted with id :"+id;
+		return userService.getAll();
 	}
-	@PutMapping(value="/user")
-	public String updateuser(@RequestBody User user)
+	@RequestMapping("/update")
+	public String update(@RequestParam String fname,@RequestParam String lname,@RequestParam String uemail,@RequestParam long ucontact,@RequestParam long uid) 
 	{
-		User upd=userRepository.save(user);
-		return "User updated "+upd.getUid();
+		User u = userService.create(fname, lname, uemail, ucontact, uid);
+		return u.toString();
 	}
+	@RequestMapping("/delete")
+	public String delete(@RequestParam String fname) 
+	{
+		 userService.delete(fname);
+		 return "Deleted"+fname;
+	}
+	
 	
 	
 }
