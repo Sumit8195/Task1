@@ -1,7 +1,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.model.User;
+import com.example.demo.model.response.UserResponse;
 import com.example.demo.repositories.UserRepository;
 
 @Service
@@ -17,27 +22,58 @@ import com.example.demo.repositories.UserRepository;
 public class UserService implements IUserService {
 	@Autowired
 	private UserRepository userRepository;
-	//create
-	public User create(User user) {
-		return userRepository.save(user);
+	@Override
+	public UserResponse createUser(UserResponse userResponse) {
+		User user =new User();
+		BeanUtils.copyProperties(userResponse, user);
+		user = userRepository.save(user);
+		BeanUtils.copyProperties(user, userResponse);
+		return userResponse;
 	}
+	
+	//create
+
 	//retrieve
-	public List<User> getAll()
+	public List<UserResponse> getAll()
 	{
-		return userRepository.findAll();
+		Iterable<User> Iterable= userRepository.findAll();
+		List<UserResponse> users=StreamSupport.stream(Iterable.spliterator(), false).map(user->{
+			UserResponse resp = new UserResponse();
+			BeanUtils.copyProperties(user, resp);
+			return resp;
+		}).collect(Collectors.toList());
+		return users;
 	}
 	//read one
-	public User getByFirstname(String fname) {
+	public UserResponse getUser(String fname) {
 		
-		return userRepository.findByFname(fname);
+	Optional<User> user= userRepository.findByFname(fname);
+	UserResponse resp=null;
+	if(user.isPresent())
+	{
+		resp= new UserResponse();
+		BeanUtils.copyProperties(user.get(), resp);
 		
 	}
+		return resp;
+	}
 	//update
-	public User update(long id,User user) {
+	public UserResponse update(long id,UserResponse user) {
 		
-		user.setUid(id);
+		Optional<User> useropt = userRepository.findById(id);
 		
-		return userRepository.save(user);
+		if(useropt.isPresent()) {
+			User user1 = new User();
+			BeanUtils.copyProperties(user, user1);
+			user1=userRepository.save(user1);
+			BeanUtils.copyProperties(user1, user);
+		}
+		else
+		{
+			//Exception
+		}
+		
+		return user; 
 	}
 	//Delete All
 	public void deleteAll() {
@@ -46,8 +82,19 @@ public class UserService implements IUserService {
 	}
 	//delete one
 	public void delete(String fname) {
-		User u = userRepository.findByFname(fname);
-		userRepository.delete(u);
+		
+		Optional<User> user= userRepository.findByFname(fname);
+		
+		
+		if(user.isPresent())
+		{
+			
+			userRepository.deleteByFname(fname);
+		}
+		else
+		{
+			//Exception
+		}
 		
 		
 	}
