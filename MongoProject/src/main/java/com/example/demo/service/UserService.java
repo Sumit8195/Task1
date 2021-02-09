@@ -2,18 +2,24 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
 @Service
-public class UserService {
-	
+@Transactional
+public class UserService implements IUserService {
+	@Autowired
 	private UserRepository userRepository;
 	//create
-	public User create(String fname,String lname,String uemail,long ucontact, long uid) {
-		return userRepository.save(new User(fname,lname,uemail,ucontact,uid));
+	public User create(User user) {
+		return userRepository.save(user);
 	}
 	//retrieve
 	public List<User> getAll()
@@ -22,17 +28,16 @@ public class UserService {
 	}
 	//read one
 	public User getByFirstname(String fname) {
+		
 		return userRepository.findByFname(fname);
 		
 	}
 	//update
-	public User update(String fname,String lname,String uemail,long ucontact, long uid) {
-		User u = userRepository.findByFname(fname);
-		u.setLname(lname);
-		u.setUcontact(ucontact);
-		u.setUemail(uemail);
-		u.setUid(uid);
-		return userRepository.save(u);
+	public User update(long id,User user) {
+		
+		user.setUid(id);
+		
+		return userRepository.save(user);
 	}
 	//Delete All
 	public void deleteAll() {
@@ -45,6 +50,12 @@ public class UserService {
 		userRepository.delete(u);
 		
 		
+	}
+	@Override
+	public List<User> findPaginated(int pageno, int pagesize) {
+		Pageable paging = PageRequest.of(pageno, pagesize);
+		Page<User> pageResult = userRepository.findAll(paging);
+		return pageResult.toList();
 	}
 
 }
