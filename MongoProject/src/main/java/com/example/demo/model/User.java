@@ -6,24 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="user")
 public class User 
 {
-	
+	@Id
+	private long uid;
 	private String fname;
 	private String lname;
 	private String uemail;
-	@Id
-	private long uid;
 	private long ucontact;
-	public User() {
-		super();
-	}
-	public User(String fname, String lname, String uemail, long ucontact,long uid) {
-		super();
-		this.fname = fname;
-		this.lname = lname;
-		this.uemail = uemail;
-		this.ucontact = ucontact;
-		this.uid = uid;
-	}
+	
 	public String getFname() {
 		return fname;
 	}
@@ -53,6 +42,17 @@ public class User
 	}
 	public void setUcontact(long ucontact) {
 		this.ucontact = ucontact;
+	}
+	public User() {
+		super();
+	}
+	public User(String fname, String lname, String uemail, long ucontact,long uid) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.uemail = uemail;
+		this.ucontact = ucontact;
+		this.uid = uid;
 	}
 	@Override
 	public String toString() {
