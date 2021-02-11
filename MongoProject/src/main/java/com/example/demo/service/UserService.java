@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.model.DTO.UserDTO;
 import com.example.demo.repositories.UserRepository;
@@ -38,7 +40,12 @@ public class UserService implements IUserService {
 			BeanUtils.copyProperties(user, resp);
 			return resp;
 		}).collect(Collectors.toList());
-		return users;
+		if(users==null)
+			{
+			throw new UserNotFoundException("No Users in Database");
+			}
+		else
+			return users;
 	}
 	//read one
 	public UserDTO getUser(long uid) {	
@@ -48,9 +55,11 @@ public class UserService implements IUserService {
 	{
 		resp= new UserDTO();
 		BeanUtils.copyProperties(user.get(), resp);
-		
-	}
 		return resp;
+	}
+	else 
+		throw new UserNotFoundException("No user with id "+uid);
+		
 	}
 	//update
 	public UserDTO update(UserDTO user) {
@@ -70,6 +79,8 @@ public class UserService implements IUserService {
 			
 			userRepository.deleteById(uid);
 		}	
+		else 
+			throw new UserNotFoundException("No user with id "+uid);
 	}
 	@Override
 	public List<User> findPaginated(int pageno, int pagesize) {
