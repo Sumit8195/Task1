@@ -1,26 +1,30 @@
-package com.example.demo.model.response;
+package com.example.demo.model.DTO;
 
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
-public class UserResponse extends RepresentationModel<UserResponse> {
+public class UserDTO extends RepresentationModel<UserDTO> {
 	
 	@NotNull
 	private long uid;
-	@NotNull
-	@Email
-	private String uemail;
 	@NotNull
 	public String fname;
 	@NotNull
 	private String lname;
 	@NotNull
 	private long ucontact;
+	
+	@NotNull
+	@Email
+	@Indexed(unique=true)
+	private String uemail;
 	
 	public String getLname() {
 		return lname;
@@ -72,7 +76,7 @@ public class UserResponse extends RepresentationModel<UserResponse> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserResponse other = (UserResponse) obj;
+		UserDTO other = (UserDTO) obj;
 		if (fname == null) {
 			if (other.fname != null)
 				return false;

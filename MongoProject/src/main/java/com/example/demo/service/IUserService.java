@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
-import com.example.demo.model.response.UserResponse;
+import com.example.demo.model.DTO.UserDTO;
 @Service
 public interface IUserService {
 	List<User> findPaginated(int pageno,int pagesize);
-	public UserResponse createUser(UserResponse userResponse);
-	public UserResponse getUser(String fname);
-	public UserResponse update(long id,UserResponse userResponse);
-	public void delete(String fname);
-	public List<UserResponse> getAll();
+	public UserDTO createUser(UserDTO userResponse);
+	public UserDTO getUser(long uid);
+	public UserDTO update(UserDTO userResponse);
+	public void delete(long uid);
+	public List<UserDTO> getAll();
 }
