@@ -17,6 +17,7 @@ public interface IUserService {
 	public void delete(long uid);
 	public List<UserDTO> getAll();
 	public Page<User> retrieveUserWithPaging(int page, int size);
+	
 
 	
 	

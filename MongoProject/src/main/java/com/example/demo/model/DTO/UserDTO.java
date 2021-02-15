@@ -24,7 +24,7 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 	@NotNull
 	@Email
 	@Indexed(unique=true)
-	private String uesrEmail;
+	private String userEmail;
 	
 	
 	public long getUserId() {
@@ -51,16 +51,17 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 	public void setUserContact(long userContact) {
 		this.userContact = userContact;
 	}
-	public String getUesrEmail() {
-		return uesrEmail;
+	
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUesrEmail(String uesrEmail) {
-		this.uesrEmail = uesrEmail;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userContact="
-				+ userContact + ", uesrEmail=" + uesrEmail + "]";
+				+ userContact + ", uesrEmail=" + userEmail + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -68,7 +69,7 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 		int result = super.hashCode();
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((uesrEmail == null) ? 0 : uesrEmail.hashCode());
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + (int) (userContact ^ (userContact >>> 32));
 		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
@@ -92,10 +93,10 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (uesrEmail == null) {
-			if (other.uesrEmail != null)
+		if (userEmail == null) {
+			if (other.userEmail != null)
 				return false;
-		} else if (!uesrEmail.equals(other.uesrEmail))
+		} else if (!userEmail.equals(other.userEmail))
 			return false;
 		if (userContact != other.userContact)
 			return false;

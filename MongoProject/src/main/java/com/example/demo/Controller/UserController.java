@@ -82,10 +82,9 @@ public class UserController {
 	
 
 	@GetMapping("/user/pageable")
-	public Page<User> retrieveUserWithPaging(@Param(value="page") int page,@Param(value="size") int size){
-		return userService.retrieveUserWithPaging(page,size);
+	public Page<User> retrieveUserWithPaging(@Param(value="Page") int Page,@Param(value="Size") int Size){
+		return userService.retrieveUserWithPaging(Page-1,Size);
 	}
-	
 	
 	
 	@PutMapping(value="/user")
