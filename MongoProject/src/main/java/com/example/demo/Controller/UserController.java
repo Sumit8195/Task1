@@ -79,12 +79,26 @@ public class UserController {
 		Link link = linkTo(methodOn(UserController.class).getAll()).withSelfRel();
 		return CollectionModel.of(list,link); 
 	}
+	@GetMapping(value="/user/getbyemail")
+	public UserDTO getbyEmail(@Param(value="userEmail") String userEmail) 
+	{
+		UserDTO resp = userService.getbyEmail(userEmail);
+		return resp;
+	}
+	
+	@GetMapping(value="/user/getbycontact")
+	public UserDTO getbyContact(@Param(value="userContact") long userContact) 
+	{
+		UserDTO resp = userService.getbyContact(userContact);
+		return resp;
+	}
 	
 
 	@GetMapping("/user/pageable")
 	public Page<User> retrieveUserWithPaging(@Param(value="Page") int Page,@Param(value="Size") int Size){
 		return userService.retrieveUserWithPaging(Page-1,Size);
 	}
+	
 	
 	
 	@PutMapping(value="/user")

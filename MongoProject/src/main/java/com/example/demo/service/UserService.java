@@ -89,6 +89,32 @@ public class UserService implements IUserService {
 		Pageable pageReq =PageRequest.of(page, size);
 		return userRepository.findAll(pageReq);
 	}
+	public UserDTO getbyEmail(String email) {
+		Optional<User> user= userRepository.findUserByUserEmail(email);
+		UserDTO resp=null;
+		if(user.isPresent())
+		{
+			resp= new UserDTO();
+			BeanUtils.copyProperties(user.get(), resp);
+			return resp;
+		}
+		else 
+			throw new UserNotFoundException("No user with this email "+email);
+			
+		}
+	public UserDTO getbyContact(long userContact) {
+		Optional<User> user= userRepository.findUserByUserContact(userContact);
+		UserDTO resp=null;
+		if(user.isPresent())
+		{
+			resp= new UserDTO();
+			BeanUtils.copyProperties(user.get(), resp);
+			return resp;
+		}
+		else 
+			throw new UserNotFoundException("No user with this contact "+userContact);
+			
+		}
 	
 	
 }

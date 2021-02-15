@@ -19,7 +19,8 @@ public interface UserRepository extends MongoRepository<User, Long> {
 	@Override
 	List<User> findAll();
 	Page<User> findAll(Pageable pageable);
-	
+	public Optional<User> findUserByUserEmail(String userEmail);
+	public Optional<User> findUserByUserContact(long userContact);
 
 	
 	
