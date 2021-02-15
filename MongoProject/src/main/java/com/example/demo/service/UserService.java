@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.model.DTO.UserDTO;
+
 import com.example.demo.repositories.UserRepository;
 
 @Service
@@ -82,11 +85,11 @@ public class UserService implements IUserService {
 		else 
 			throw new UserNotFoundException("No user with id "+uid);
 	}
-	@Override
-	public List<User> findPaginated(int pageno, int pagesize) {
-		Pageable paging = PageRequest.of(pageno, pagesize);
-		Page<User> pageResult = userRepository.findAll(paging);
-		return pageResult.toList();
+	public Page<User> retrieveUserWithPaging(int page, int size) {
+		Pageable pageReq =PageRequest.of(page, size);
+		return userRepository.findAll(pageReq);
 	}
-
+	
+	
+	
 }
