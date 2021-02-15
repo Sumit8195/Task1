@@ -13,96 +13,100 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserDTO extends RepresentationModel<UserDTO> {
 	
 	@NotNull
-	private long uid;
+	private long userId;
 	@NotNull
-	public String fname;
+	public String firstName;
 	@NotNull
-	private String lname;
+	private String lastName;
 	@NotNull
-	private long ucontact;
+	private long userContact;
 	
 	@NotNull
 	@Email
 	@Indexed(unique=true)
-	private String uemail;
+	private String userEmail;
 	
-	public String getLname() {
-		return lname;
+	
+	public long getUserId() {
+		return userId;
 	}
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
-	public long getUcontact() {
-		return ucontact;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setUcontact(long ucontact) {
-		this.ucontact = ucontact;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public long getUserContact() {
+		return userContact;
+	}
+	public void setUserContact(long userContact) {
+		this.userContact = userContact;
 	}
 	
-	public long getUid() {
-		return uid;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUid(long uid) {
-		this.uid = uid;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public String getUemail() {
-		return uemail;
-	}
-	public void setUemail(String uemail) {
-		this.uemail = uemail;
-	}
-	public String getFname() {
-		return fname;
-	}
-	public void setFname(String fname) {
-		this.fname = fname;
+	@Override
+	public String toString() {
+		return "UserDTO [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userContact="
+				+ userContact + ", uesrEmail=" + userEmail + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
-		result = prime * result + ((lname == null) ? 0 : lname.hashCode());
-		result = prime * result + (int) (ucontact ^ (ucontact >>> 32));
-		result = prime * result + ((uemail == null) ? 0 : uemail.hashCode());
-		result = prime * result + (int) (uid ^ (uid >>> 32));
+		int result = super.hashCode();
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + (int) (userContact ^ (userContact >>> 32));
+		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		UserDTO other = (UserDTO) obj;
-		if (fname == null) {
-			if (other.fname != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!fname.equals(other.fname))
+		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (lname == null) {
-			if (other.lname != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!lname.equals(other.lname))
+		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (ucontact != other.ucontact)
-			return false;
-		if (uemail == null) {
-			if (other.uemail != null)
+		if (userEmail == null) {
+			if (other.userEmail != null)
 				return false;
-		} else if (!uemail.equals(other.uemail))
+		} else if (!userEmail.equals(other.userEmail))
 			return false;
-		if (uid != other.uid)
+		if (userContact != other.userContact)
+			return false;
+		if (userId != other.userId)
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "UserResponse [uid=" + uid + ", uemail=" + uemail + ", fname=" + fname + ", lname=" + lname
-				+ ", ucontact=" + ucontact + "]";
-	}
+	
+	
+	
 	
 	
 

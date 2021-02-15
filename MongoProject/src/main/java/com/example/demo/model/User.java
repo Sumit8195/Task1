@@ -7,57 +7,60 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User 
 {
 	@Id
-	private long uid;
-	private String fname;
-	private String lname;
-	private String uemail;
-	private long ucontact;
+	private long userId;
+	private String firstName;
+	private String lastName;
+	private String userEmail;
+	private long userContact;
 	
-	public String getFname() {
-		return fname;
+	
+	public long getUserId() {
+		return userId;
 	}
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
-	public String getLname() {
-		return lname;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getUemail() {
-		return uemail;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setUemail(String uemail) {
-		this.uemail = uemail;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	public long getUid() {
-		return uid;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUid(long uid) {
-		this.uid = uid;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public long getUcontact() {
-		return ucontact;
+	public long getUserContact() {
+		return userContact;
 	}
-	public void setUcontact(long ucontact) {
-		this.ucontact = ucontact;
+	public void setUserContact(long userContact) {
+		this.userContact = userContact;
 	}
 	public User() {
 		super();
 	}
-	public User(String fname, String lname, String uemail, long ucontact,long uid) {
+	
+	public User(long userId, String firstName, String lastName, String userEmail, long userContact) {
 		super();
-		this.fname = fname;
-		this.lname = lname;
-		this.uemail = uemail;
-		this.ucontact = ucontact;
-		this.uid = uid;
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userEmail = userEmail;
+		this.userContact = userContact;
 	}
 	@Override
 	public String toString() {
-		return "User [fname=" + fname + ", lname=" + lname + ", uemail=" + uemail + ", uid=" + uid + ", ucontact="
-				+ ucontact + "]";
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userEmail="
+				+ userEmail + ", userContact=" + userContact + "]";
 	}
+	
 	
 }
