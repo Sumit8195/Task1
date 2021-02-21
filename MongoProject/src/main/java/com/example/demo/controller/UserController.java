@@ -91,8 +91,8 @@ public class UserController {
 	@GetMapping("/user")
 	public Page<UserDTO> getall(@RequestParam(required=false,value="userId")Optional<Long> userId,@RequestParam(required=false,value="userContact")Optional<Long> userContact,
 			@RequestParam(required=false,value="userEmail")Optional<String> userEmail,@RequestParam(required=false,value="firstName")Optional<String> firstName,
-			@RequestParam(required=false,value="lastName")Optional<String> lastName,@RequestParam(defaultValue="0",value="Page")int page,
-			@RequestParam(defaultValue="3",value="Size")int size)
+			@RequestParam(required=false,value="lastName")Optional<String> lastName,@RequestParam(defaultValue="0",value="page")int page,
+			@RequestParam(defaultValue="3",value="size")int size)
 	{
 		return userServ.getAll(userId,userContact,userEmail,firstName,lastName,page,size);
 	}

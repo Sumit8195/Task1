@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.demo.controller.UserController;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.model.dto.UserDTO;
@@ -149,15 +154,16 @@ public class UserService implements IUserService {
 		for(User users:list) {
 			UserDTO dto= new UserDTO();
 			BeanUtils.copyProperties(users, dto);
+			dto.add(linkTo(methodOn(UserController.class).getUser(users.getUserId())).withSelfRel());
 			dtolist.add(dto);	
 		}
 		if(dtolist.isEmpty())
 			throw new UserNotFoundException("No pages found");
 		else
 		{
-			int start = (int)pageing.getOffset();
-			int end = (start + pageing.getPageSize())>dtolist.size()?dtolist.size():(start+pageing.getPageSize());
-			Page<UserDTO> pages = new PageImpl<UserDTO>(dtolist.subList(start, end),pageing,dtolist.size());
+			
+			int end = (0 + pageing.getPageSize())>dtolist.size()?dtolist.size():(0+pageing.getPageSize());
+			Page<UserDTO> pages = new PageImpl<UserDTO>(dtolist.subList(0, end),pageing,dtolist.size());
 			return pages;
 		}
 	}
