@@ -1,4 +1,4 @@
-package com.example.demo.model.DTO;
+package com.example.demo.model.dto;
 
 
 import javax.validation.constraints.Email;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserDTO extends RepresentationModel<UserDTO> {
 	
 	@NotNull
-	private long userId;
+	private Long userId;
 	@NotNull
 	public String firstName;
 	@NotNull
 	private String lastName;
 	@NotNull
-	private long userContact;
+	private Long userContact;
 	
 	@NotNull
 	@Email
@@ -27,10 +27,10 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 	private String userEmail;
 	
 	
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getFirstName() {
@@ -45,10 +45,10 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public long getUserContact() {
+	public Long getUserContact() {
 		return userContact;
 	}
-	public void setUserContact(long userContact) {
+	public void setUserContact(Long userContact) {
 		this.userContact = userContact;
 	}
 	
@@ -69,9 +69,9 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 		int result = super.hashCode();
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((userContact == null) ? 0 : userContact.hashCode());
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
-		result = prime * result + (int) (userContact ^ (userContact >>> 32));
-		result = prime * result + (int) (userId ^ (userId >>> 32));
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 	@Override
@@ -93,18 +93,24 @@ public class UserDTO extends RepresentationModel<UserDTO> {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+		if (userContact == null) {
+			if (other.userContact != null)
+				return false;
+		} else if (!userContact.equals(other.userContact))
+			return false;
 		if (userEmail == null) {
 			if (other.userEmail != null)
 				return false;
 		} else if (!userEmail.equals(other.userEmail))
 			return false;
-		if (userContact != other.userContact)
-			return false;
-		if (userId != other.userId)
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
-	
+
 	
 	
 	
