@@ -3,21 +3,21 @@ package com.example.demo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="user")
+@Document(collection="users")
 public class User 
 {
 	@Id
-	private long userId;
+	private Long userId;
 	private String firstName;
 	private String lastName;
 	private String userEmail;
-	private long userContact;
+	private Long userContact;
 	
 	
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getFirstName() {
@@ -38,17 +38,17 @@ public class User
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	public long getUserContact() {
+	public Long getUserContact() {
 		return userContact;
 	}
-	public void setUserContact(long userContact) {
+	public void setUserContact(Long userContact) {
 		this.userContact = userContact;
 	}
 	public User() {
 		super();
 	}
 	
-	public User(long userId, String firstName, String lastName, String userEmail, long userContact) {
+	public User(Long userId, String firstName, String lastName, String userEmail, Long userContact) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
